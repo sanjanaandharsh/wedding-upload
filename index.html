@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sanjana & Harsh - Wedding Upload</title>
 
-  <!-- Calligraphy-style font -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
 
   <style>
@@ -14,17 +14,17 @@
       font-family: 'Open Sans', sans-serif;
       background: url('background.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: rgba(255, 255, 255, 0.85); /* slightly translucent text */
+      color: rgba(255, 255, 255, 0.85);
       text-shadow: 1px 1px 2px #000;
       height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: center;
-      padding: 0 20px;
+      padding: 60px 20px 20px;
     }
 
     .overlay {
@@ -65,8 +65,25 @@
       background-color: #e6005c;
     }
 
+    #form-container {
+      display: none;
+      z-index: 2;
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
     .footer {
-      position: absolute;
+      position: fixed;
       bottom: 10px;
       font-size: 0.9rem;
       color: #eee;
@@ -81,6 +98,7 @@
       transform: rotate(45deg);
       animation: float 8s linear infinite;
       z-index: 0;
+      opacity: 0.8;
     }
 
     .heart::before,
@@ -113,35 +131,51 @@
         opacity: 0;
       }
     }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      iframe {
+        height: 500px;
+      }
+    }
   </style>
 </head>
-<body>
 
+<body>
   <div class="overlay"></div>
 
   <h1>📸 Sanjana & Harsh</h1>
   <p>Thank you for celebrating with us.<br>Please upload your favorite wedding moments!</p>
 
-  <button class="upload-btn" onclick="openDrive()">Upload Your Photos</button>
+  <button class="upload-btn" onclick="showForm()">Upload Your Photos</button>
+
+  <div id="form-container">
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLSebdXYlq_zkq26DBYR6ixbYXe2NZpV7HfeniUMnFrmc-RUj4g/viewform?embedded=true"
+      allowfullscreen>
+      Loading…
+    </iframe>
+  </div>
 
   <div class="footer">With love, from the couple 💕</div>
 
   <script>
-    function openDrive() {
-      window.open("https://drive.google.com/drive/folders/1B_rUGpkvOXAo74tbmduQR1ClP4Zyp3zL?usp=share_link", "_blank");
+    function showForm() {
+      document.getElementById('form-container').style.display = 'block';
+      document.querySelector('.upload-btn').style.display = 'none';
     }
 
-    // 💖 Animated Hearts
+    // 💖 Floating Heart Animation
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 10000);
+      setTimeout(() => heart.remove(), 10000);
     }
 
     setInterval(createHeart, 300);
