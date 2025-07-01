@@ -175,9 +175,19 @@
   <script>
     // 🎀 Show form on button click
     function showForm() {
-      document.getElementById('form-container').style.display = 'block';
-      document.querySelector('.upload-btn').style.display = 'none';
-    }
+  const form = document.getElementById('form-container');
+  form.style.display = 'block';
+  document.querySelector('.upload-btn').style.display = 'none';
+
+  // Scroll form into view with a small upward offset
+  setTimeout(() => {
+    window.scrollTo({
+      top: form.offsetTop - 60, // move 60px above the form
+      behavior: 'smooth'
+    });
+  }, 100); // short delay to allow rendering
+}
+
 
     // 💖 Generate smooth animated hearts
     const heartContainer = document.querySelector('.hearts');
