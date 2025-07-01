@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanjana & Harsh - Wedding Uploads</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #fff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #b30059;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .upload-btn {
+      background-color: #ff6699;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background-color: #e6005c;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📸 Share Your Moments</h1>
+  <p>Welcome to the wedding of <strong>Sanjana & Harsh</strong><br>We'd love to see the photos you've clicked!</p>
+
+  <button class="upload-btn" onclick="openDrive()">Upload Your Photos</button>
+
+  <div class="footer">Thank you for being part of our special day 💕</div>
+
+  <script>
+    function openDrive() {
+      window.open("https://drive.google.com/drive/folders/1B_rUGpkvOXAo74tbmduQR1ClP4Zyp3zL?usp=share_link", "_blank");
+    }
+  </script>
+
+</body>
+</html>
