@@ -1,65 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sanjana & Harsh - Wedding Uploads</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffe6e6, #fff);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      color: #333;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    text-shadow: 1px 1px 3px #000;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 0 20px;
+    overflow: hidden;
+  }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      color: #b30059;
-    }
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+  }
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    z-index: 1;
+    color: #ffccdd;
+  }
 
-    .upload-btn {
-      background-color: #ff6699;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    z-index: 1;
+  }
 
-    .upload-btn:hover {
-      background-color: #e6005c;
-    }
+  .upload-btn {
+    background-color: #ff6699;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+  }
 
-    .footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 0.9rem;
-      color: #888;
-    }
-  </style>
-</head>
+  .upload-btn:hover {
+    background-color: #e6005c;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.9rem;
+    color: #eee;
+    z-index: 1;
+  }
+</style>
+
 <body>
 
-  <h1>📸 Share Your Moments</h1>
-  <p>Welcome to the wedding of <strong>Sanjana & Harsh</strong><br>We'd love to see the photos you've clicked!</p>
+  <div class="overlay"></div>
+
+  <h1>📸 Sanjana & Harsh</h1>
+  <p>Thank you for celebrating with us.<br>Please upload your favorite wedding moments!</p>
 
   <button class="upload-btn" onclick="openDrive()">Upload Your Photos</button>
 
-  <div class="footer">Thank you for being part of our special day 💕</div>
+  <div class="footer">With love, from the couple 💕</div>
 
   <script>
     function openDrive() {
@@ -68,4 +81,3 @@
   </script>
 
 </body>
-</html>
