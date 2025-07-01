@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sanjana & Harsh - Wedding Upload</title>
 
-  <!-- Calligraphy-style font from Google Fonts -->
+  <!-- Calligraphy-style font -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
 
   <style>
@@ -14,8 +14,8 @@
       font-family: 'Open Sans', sans-serif;
       background: url('background.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
-      text-shadow: 1px 1px 3px #000;
+      color: rgba(255, 255, 255, 0.85); /* slightly translucent text */
+      text-shadow: 1px 1px 2px #000;
       height: 100vh;
       overflow: hidden;
       position: relative;
@@ -40,7 +40,7 @@
       font-size: 3.5rem;
       margin-bottom: 0.5rem;
       z-index: 1;
-      color: #ffe6f0;
+      color: rgba(255, 230, 240, 0.85);
     }
 
     p {
@@ -73,20 +73,51 @@
       z-index: 1;
     }
 
-    .confetti {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      height: 100%;
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
       z-index: 0;
-      pointer-events: none;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="overlay"></div>
-  <canvas class="confetti"></canvas>
 
   <h1>📸 Sanjana & Harsh</h1>
   <p>Thank you for celebrating with us.<br>Please upload your favorite wedding moments!</p>
@@ -100,51 +131,20 @@
       window.open("https://drive.google.com/drive/folders/1B_rUGpkvOXAo74tbmduQR1ClP4Zyp3zL?usp=share_link", "_blank");
     }
 
-    // 🎉 Confetti Animation
-    const canvas = document.querySelector('.confetti');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
+    // 💖 Animated Hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      document.body.appendChild(heart);
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
     }
 
-    window.addEventListener('resize', resize);
-    resize();
-
-    function createParticles() {
-      for (let i = 0; i < 150; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 6 + 2,
-          dx: (Math.random() - 0.5) * 2,
-          dy: Math.random() * 2 + 1,
-          color: `hsl(${Math.random() * 360}, 70%, 70%)`
-        });
-      }
-    }
-
-    function drawParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.y > canvas.height) {
-          p.y = -10;
-          p.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(drawParticles);
-    }
-
-    createParticles();
-    drawParticles();
+    setInterval(createHeart, 300);
   </script>
 </body>
 </html>
