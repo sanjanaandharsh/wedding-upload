@@ -1,71 +1,92 @@
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    padding: 0 20px;
-    overflow: hidden;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanjana & Harsh - Wedding Upload</title>
 
-  .overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 0;
-  }
+  <!-- Calligraphy-style font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
 
-  h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-    z-index: 1;
-    color: #ffccdd;
-  }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+    }
 
-  p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    z-index: 1;
-  }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
 
-  .upload-btn {
-    background-color: #ff6699;
-    color: white;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    z-index: 1;
-  }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      z-index: 1;
+      color: #ffe6f0;
+    }
 
-  .upload-btn:hover {
-    background-color: #e6005c;
-  }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      z-index: 1;
+    }
 
-  .footer {
-    position: absolute;
-    bottom: 10px;
-    font-size: 0.9rem;
-    color: #eee;
-    z-index: 1;
-  }
-</style>
+    .upload-btn {
+      background-color: #ff6699;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 1;
+    }
 
+    .upload-btn:hover {
+      background-color: #e6005c;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: #eee;
+      z-index: 1;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
 <body>
 
   <div class="overlay"></div>
+  <canvas class="confetti"></canvas>
 
   <h1>📸 Sanjana & Harsh</h1>
   <p>Thank you for celebrating with us.<br>Please upload your favorite wedding moments!</p>
@@ -78,6 +99,52 @@
     function openDrive() {
       window.open("https://drive.google.com/drive/folders/1B_rUGpkvOXAo74tbmduQR1ClP4Zyp3zL?usp=share_link", "_blank");
     }
-  </script>
 
+    // 🎉 Confetti Animation
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function createParticles() {
+      for (let i = 0; i < 150; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 6 + 2,
+          dx: (Math.random() - 0.5) * 2,
+          dy: Math.random() * 2 + 1,
+          color: `hsl(${Math.random() * 360}, 70%, 70%)`
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.y > canvas.height) {
+          p.y = -10;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawParticles);
+    }
+
+    createParticles();
+    drawParticles();
+  </script>
 </body>
+</html>
