@@ -22,7 +22,7 @@
       text-shadow: 1px 1px 2px #000;
       min-height: 100vh;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -70,6 +70,7 @@
 
     #form-container {
       margin-top: 2rem;
+      padding-top: 1rem;
       display: none;
       z-index: 2;
       max-width: 600px;
@@ -147,6 +148,16 @@
         opacity: 0;
       }
     }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      iframe {
+        height: 500px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -154,9 +165,7 @@
   <div class="overlay"></div>
 
   <!-- 💖 Animated Hearts -->
-  <div class="hearts">
-    <!-- We’ll generate multiple hearts dynamically -->
-  </div>
+  <div class="hearts"></div>
 
   <h1>📸 Sanjana & Harsh</h1>
   <p>Thank you for celebrating with us.<br>Please upload your favorite wedding moments!</p>
@@ -173,23 +182,44 @@
   <div class="footer">With love, from the couple 💕</div>
 
   <script>
-    // 🎀 Show form on button click
+    // 🎀 Show form and update browser history
     function showForm() {
-  const form = document.getElementById('form-container');
-  form.style.display = 'block';
-  document.querySelector('.upload-btn').style.display = 'none';
+      const form = document.getElementById('form-container');
+      form.style.display = 'block';
+      document.querySelector('.upload-btn').style.display = 'none';
 
-  // Scroll form into view with a small upward offset
-  setTimeout(() => {
-    window.scrollTo({
-      top: form.offsetTop - 60, // move 60px above the form
-      behavior: 'smooth'
+      // Add hash to URL for back button tracking
+      history.pushState({ formOpen: true }, '', '#upload');
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: form.offsetTop - 60,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+
+    // Restore homepage on back navigation
+    window.addEventListener('popstate', () => {
+      if (!location.hash || location.hash !== '#upload') {
+        document.getElementById('form-container').style.display = 'none';
+        document.querySelector('.upload-btn').style.display = 'inline-block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
-  }, 100); // short delay to allow rendering
-}
 
+    // On load: hide form unless #upload is present
+    window.addEventListener('DOMContentLoaded', () => {
+      if (location.hash !== '#upload') {
+        document.getElementById('form-container').style.display = 'none';
+        document.querySelector('.upload-btn').style.display = 'inline-block';
+        window.scrollTo({ top: 0 });
+      } else {
+        showForm();
+      }
+    });
 
-    // 💖 Generate smooth animated hearts
+    // 💖 Animated hearts generator
     const heartContainer = document.querySelector('.hearts');
     function createHeart() {
       const heart = document.createElement('div');
@@ -200,7 +230,6 @@
       heartContainer.appendChild(heart);
       setTimeout(() => heart.remove(), 10000);
     }
-
     setInterval(createHeart, 400);
   </script>
 
